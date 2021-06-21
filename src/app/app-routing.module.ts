@@ -4,8 +4,6 @@ import { RouterModule, Routes } from '@angular/router';
 // Modules
 import { PagesRoutingModule } from './pages/pages.routing';
 
-import { LoginComponent } from './auth/login/login.component';
-import { RegisterComponent } from './auth/register/register.component';
 import { NotPageFoundComponent } from './not-page-found/not-page-found.component';
 import { AuthRoutingModule } from './auth/auth.routing';
 

@@ -11,7 +11,7 @@ import { NotPageFoundComponent } from './not-page-found/not-page-found.component
 
 @NgModule({
   declarations: [AppComponent, NotPageFoundComponent],
-  imports: [BrowserModule, AppRoutingModule, AuthModule, PagesModule],
+  imports: [AppRoutingModule, AuthModule, BrowserModule, PagesModule],
   providers: [],
   bootstrap: [AppComponent],
 })
