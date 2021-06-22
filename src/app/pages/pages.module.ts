@@ -8,6 +8,7 @@ import { SharedModule } from '../shared/shared.module';
 
 // Components
 
+import { AccountSettingsComponent } from './account-settings/account-settings.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { Graph1Component } from './graph1/graph1.component';
 import { PagesComponent } from './pages.component';
@@ -16,6 +17,7 @@ import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
+    AccountSettingsComponent,
     DashboardComponent,
     Graph1Component,
     ProgressComponent,
