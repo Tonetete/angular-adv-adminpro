@@ -16,7 +16,6 @@ export class IncrementComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
-    console.log(`progress ${this.progress}`);
     this.btnClass = `btn ${this.btnClass}`;
   }
 
