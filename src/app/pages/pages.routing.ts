@@ -11,10 +11,15 @@ import { ProgressComponent } from './progress/progress.component';
 import { PromisesComponent } from './promises/promises.component';
 import { RxjsComponent } from './rxjs/rxjs.component';
 
+// Guards
+
+import { AuthGuard } from '../guards/auth.guard';
+
 const routes: Routes = [
   {
     path: 'dashboard',
     component: PagesComponent,
+    canActivate: [AuthGuard],
     children: [
       {
         path: '',
@@ -44,7 +49,7 @@ const routes: Routes = [
       {
         path: 'rxjs',
         component: RxjsComponent,
-        data: { title: 'RxJS' },
+        data: { title: 'RxJS ' },
       },
     ],
   },

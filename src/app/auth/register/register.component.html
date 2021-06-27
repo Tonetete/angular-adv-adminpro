@@ -8,7 +8,9 @@
       <form
         class="form-horizontal form-material"
         id="loginform"
-        action="index.html"
+        autocomplete="off"
+        [formGroup]="registerForm"
+        (ngSubmit)="createUser()"
       >
         <a href="javascript:void(0)" class="text-center db"
           ><img src="../assets/images/logo-icon.png" alt="Home" /><br /><img
@@ -24,6 +26,7 @@
               type="text"
               required=""
               placeholder="Name"
+              formControlName="name"
             />
           </div>
         </div>
@@ -34,6 +37,7 @@
               type="text"
               required=""
               placeholder="Email"
+              formControlName="email"
             />
           </div>
         </div>
@@ -44,6 +48,7 @@
               type="password"
               required=""
               placeholder="Password"
+              formControlName="password"
             />
           </div>
         </div>
@@ -54,17 +59,43 @@
               type="password"
               required=""
               placeholder="Confirm Password"
+              formControlName="confirmPassword"
             />
           </div>
         </div>
         <div class="form-group row">
           <div class="col-md-12">
             <div class="checkbox checkbox-primary p-t-0">
-              <input id="checkbox-signup" type="checkbox" />
+              <input
+                id="checkbox-signup"
+                type="checkbox"
+                formControlName="terms"
+              />
               <label for="checkbox-signup">
                 I agree to all <a href="#">Terms</a></label
               >
             </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col text-danger">
+            <p *ngIf="invalidField('name')">* Name is required</p>
+            <p *ngIf="invalidField('email')">
+              * Email is required and must be valid
+            </p>
+            <p *ngIf="invalidField('password')">* Password is required</p>
+            <p
+              *ngIf="
+                registerForm.get('confirmPassword')?.hasError('notEquals') &&
+                formSubmitted
+              "
+            >
+              *
+              {{
+                validationService.getValidatorErrorMessage("notEqualPasswords")
+              }}
+            </p>
+            <p *ngIf="acceptTerms()">* You must agree the terms</p>
           </div>
         </div>
         <div class="form-group text-center m-t-20">
@@ -85,9 +116,7 @@
           <div class="col-sm-12 text-center">
             <p>
               Already have an account?
-              <a href="pages-login-2.html" class="text-info m-l-5"
-                ><b>Sign In</b></a
-              >
+              <a routerLink="/login" class="text-info m-l-5"><b>Sign In</b></a>
             </p>
           </div>
         </div>
