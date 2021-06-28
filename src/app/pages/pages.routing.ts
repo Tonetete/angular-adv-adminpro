@@ -7,6 +7,7 @@ import { AccountSettingsComponent } from './account-settings/account-settings.co
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { Graph1Component } from './graph1/graph1.component';
 import { PagesComponent } from './pages.component';
+import { ProfileComponent } from './profile/profile.component';
 import { ProgressComponent } from './progress/progress.component';
 import { PromisesComponent } from './promises/promises.component';
 import { RxjsComponent } from './rxjs/rxjs.component';
@@ -40,6 +41,11 @@ const routes: Routes = [
         path: 'progress',
         component: ProgressComponent,
         data: { title: 'Progress' },
+      },
+      {
+        path: 'profile',
+        component: ProfileComponent,
+        data: { title: 'User Profile' },
       },
       {
         path: 'promises',

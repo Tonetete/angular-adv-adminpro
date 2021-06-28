@@ -11,3 +11,20 @@
 .cursor {
   cursor: pointer;
 }
+
+.crop img {
+  height: 30px;
+  object-fit: cover;
+}
+
+.crop-profile img {
+  height: 70px;
+  object-fit: cover;
+}
+
+.img-avatar {
+  height: 200px;
+  width: 200px;
+  place-self: center;
+  border-radius: 10%;
+}

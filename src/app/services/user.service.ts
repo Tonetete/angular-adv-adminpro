@@ -7,6 +7,7 @@ import { Observable, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { LoginForm } from '../interfaces/login-form.interface';
 import { RegisterForm } from '../interfaces/register-form.interface';
+import { User } from '../models/user.model';
 
 declare const gapi: any;
 
@@ -17,6 +18,7 @@ const base_url = environment.base_api_url;
 })
 export class UserService {
   public auth2: any;
+  public user!: User;
 
   constructor(
     private http: HttpClient,
@@ -48,6 +50,10 @@ export class UserService {
     });
   }
 
+  getToken(): string {
+    return localStorage.getItem('token') || '';
+  }
+
   validateToken(): Observable<boolean> {
     const token = localStorage.getItem('token') || '';
 
@@ -56,8 +62,12 @@ export class UserService {
         headers: { 'x-token': token },
       })
       .pipe(
-        tap((response: any) => localStorage.setItem('token', response.token)),
-        map((response) => true),
+        map((response: any) => {
+          const { name, role, google, email, img = '', uid } = response.user;
+          this.user = new User(name, email, '', img, google, role, uid);
+          localStorage.setItem('token', response.token);
+          return true;
+        }),
         catchError((error) => of(false))
       );
   }
@@ -67,6 +77,16 @@ export class UserService {
       tap((response: any) => {
         localStorage.setItem('token', response.token);
       })
+    );
+  }
+
+  updateUser(data: { email: string; name: string }) {
+    return this.http.put(
+      `${base_url}/users/${this.user.uid}`,
+      { ...data, role: this.user.role },
+      {
+        headers: { 'x-token': this.getToken() },
+      }
     );
   }
 

@@ -1,0 +1,6 @@
+.dw-user-box {
+  display: grid;
+  grid-template-areas:
+    "imageProfile contentProfile"
+    "imageProfile contentProfile";
+}

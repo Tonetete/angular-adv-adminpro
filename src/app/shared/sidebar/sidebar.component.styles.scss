@@ -1,0 +1,5 @@
+.user-profile a.crop {
+  display: grid;
+  grid-template-areas: "imageProfile contentProfile";
+  grid-template-columns: 1fr 3fr;
+}
