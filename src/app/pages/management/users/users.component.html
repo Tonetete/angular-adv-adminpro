@@ -1,0 +1,111 @@
+<div class="row animated fadeIn fast">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+        <input
+          id="inputSearch"
+          type="text"
+          class="form-control"
+          placeholder="Search user..."
+          (keyup)="search(inputSearch.value)"
+          #inputSearch
+        />
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row animated fadeIn fast" *ngIf="loading">
+  <div class="col-12">
+    <div class="alert alert-info text-center">
+      <h4 class="alert-heading">Loading</h4>
+      <i class="fa fa-spin fa-refresh fa-2x"></i>
+      <p class="mb-0">Please wait...</p>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="!loading" class="row animated fadeIn fast">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Total Users ({{ totalUsers }})</h4>
+        <h6 class="card-subtitle">Users registered in the application</h6>
+        <div class="table-responsive">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th class="w100">Avatar</th>
+                <th>Email</th>
+                <th>Name</th>
+                <th class="w100">Role</th>
+                <th class="w100">Auth</th>
+                <th class="text-nowrap w100">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let user of users">
+                <td>
+                  <img
+                    class="row-avatar-image cursor"
+                    [src]="user.getImage()"
+                    alt="Avatar's user"
+                    (click)="openModal(user)"
+                  />
+                </td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.name }}</td>
+                <td class="w140">
+                  <select
+                    [(ngModel)]="user.role"
+                    class="form-control"
+                    (change)="changeRole(user)"
+                  >
+                    <option value="ADMIN_ROLE">Admin</option>
+                    User
+                    <option value="USER_ROLE">User</option>
+                  </select>
+                </td>
+                <td class="text-nowrap">
+                  <span *ngIf="user.google" class="label label-danger"
+                    >google</span
+                  >
+                  <span *ngIf="!user.google" class="label label-info"
+                    >email</span
+                  >
+                </td>
+                <td class="text-nowrap text-center">
+                  <a
+                    (click)="deleteUser(user)"
+                    class="cursor"
+                    data-toggle="tooltip"
+                    data-original-title="Delete"
+                  >
+                    <i class="fa fa-close text-danger"></i>
+                  </a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <button (click)="changePage(-incPage)" class="btn btn-secondary">
+            Previous
+          </button>
+          &nbsp;
+          <button (click)="changePage(incPage)" class="btn btn-secondary">
+            Next
+          </button>
+          <br />
+          <br />
+          <span
+            >Showing results from: {{ totalUsers > 0 ? from + 1 : 0 }} to
+            <span *ngIf="from + incPage > totalUsers">{{ totalUsers }}</span>
+            <span *ngIf="from + incPage < totalUsers">{{
+              from + incPage
+            }}</span>
+            of {{ totalUsers }}</span
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

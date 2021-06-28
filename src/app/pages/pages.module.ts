@@ -17,6 +17,7 @@ import { RouterModule } from '@angular/router';
 import { PromisesComponent } from './promises/promises.component';
 import { RxjsComponent } from './rxjs/rxjs.component';
 import { ProfileComponent } from './profile/profile.component';
+import { UsersComponent } from './management/users/users.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { ProfileComponent } from './profile/profile.component';
     PromisesComponent,
     RxjsComponent,
     ProfileComponent,
+    UsersComponent,
   ],
   imports: [
     CommonModule,

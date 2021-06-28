@@ -11,6 +11,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { ProgressComponent } from './progress/progress.component';
 import { PromisesComponent } from './promises/promises.component';
 import { RxjsComponent } from './rxjs/rxjs.component';
+import { UsersComponent } from './management/users/users.component';
 
 // Guards
 
@@ -56,6 +57,13 @@ const routes: Routes = [
         path: 'rxjs',
         component: RxjsComponent,
         data: { title: 'RxJS ' },
+      },
+
+      // Management
+      {
+        path: 'users',
+        component: UsersComponent,
+        data: { title: 'App Users ' },
       },
     ],
   },

@@ -27,4 +27,38 @@
   width: 200px;
   place-self: center;
   border-radius: 10%;
+  object-fit: cover;
+}
+
+.row-avatar-image {
+  height: 75px;
+  width: 75px;
+  object-fit: cover;
+  border-radius: 100%;
+}
+
+.w100 {
+  width: 100px;
+}
+
+.w140 {
+  width: 140px;
+}
+
+.background-modal-image {
+  background-color: rgba(0, 0, 0, 0.4);
+  position: fixed;
+  left: 0px;
+  top: 0px;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+}
+
+.grid {
+  display: grid;
+}
+
+.hidden {
+  display: none;
 }

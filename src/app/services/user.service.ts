@@ -8,6 +8,7 @@ import { environment } from 'src/environments/environment';
 import { LoginForm } from '../interfaces/login-form.interface';
 import { RegisterForm } from '../interfaces/register-form.interface';
 import { User } from '../models/user.model';
+import { LoadUsers } from '../interfaces/load-users.interface';
 
 declare const gapi: any;
 
@@ -50,16 +51,20 @@ export class UserService {
     });
   }
 
-  getToken(): string {
+  get headers() {
+    return {
+      headers: { 'x-token': this.token },
+    };
+  }
+
+  get token(): string {
     return localStorage.getItem('token') || '';
   }
 
   validateToken(): Observable<boolean> {
-    const token = localStorage.getItem('token') || '';
-
     return this.http
       .get(`${base_url}/login/renew`, {
-        headers: { 'x-token': token },
+        ...this.headers,
       })
       .pipe(
         map((response: any) => {
@@ -80,12 +85,22 @@ export class UserService {
     );
   }
 
-  updateUser(data: { email: string; name: string }) {
+  updateProfile(data: { email: string; name: string }) {
     return this.http.put(
       `${base_url}/users/${this.user.uid}`,
       { ...data, role: this.user.role },
       {
-        headers: { 'x-token': this.getToken() },
+        ...this.headers,
+      }
+    );
+  }
+
+  updateUser(data: User) {
+    return this.http.put(
+      `${base_url}/users/${data.uid}`,
+      { ...data },
+      {
+        ...this.headers,
       }
     );
   }
@@ -104,5 +119,31 @@ export class UserService {
         localStorage.setItem('token', response.token);
       })
     );
+  }
+
+  loadUsers(from: number = 0) {
+    return this.http
+      .get<LoadUsers>(`${base_url}/users?from=${from}`, {
+        ...this.headers,
+      })
+      .pipe(
+        map((response: any) => ({
+          total: response.total,
+          users: this.transformUsers(response.users),
+        }))
+      );
+  }
+
+  deleteUser(user: User) {
+    return this.http.delete(`${base_url}/users/${user.uid}`, {
+      ...this.headers,
+    });
+  }
+
+  transformUsers(results: any[]): User[] {
+    return results.map((user) => {
+      const { name, role, google, email, img = '', uid } = user;
+      return new User(name, email, '', img, google, role, uid);
+    });
   }
 }

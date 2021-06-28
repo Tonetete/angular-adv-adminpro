@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { UserService } from './user.service';
-
-type Model = 'users' | 'doctors' | 'hospitals';
+import { ModelType } from '../interfaces/modelType.interface';
 
 const base_url = environment.base_api_url;
 
@@ -12,7 +11,7 @@ const base_url = environment.base_api_url;
 export class FileUploadService {
   constructor(private userService: UserService) {}
 
-  async updateImage(file: File, type: Model, id: string) {
+  async updateImage(file: File, type: ModelType, id: string) {
     try {
       const url = `${base_url}/upload/${type}/${id}`;
       const formData = new FormData();
@@ -20,7 +19,7 @@ export class FileUploadService {
 
       const response = await fetch(url, {
         method: 'PUT',
-        headers: { 'x-token': this.userService.getToken() },
+        headers: { 'x-token': this.userService.token },
         body: formData,
       });
       const data = await response.json();
