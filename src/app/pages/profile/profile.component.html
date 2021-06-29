@@ -54,14 +54,14 @@
         <h4 class="card-title">Avatar</h4>
         <h6 class="card-subtitle">User image</h6>
         <img
-          *ngIf="!previewImage"
+          *ngIf="!previewImageService.previewImage"
           [src]="user.getImage()"
           class="img-avatar"
           alt=""
         />
         <img
-          *ngIf="previewImage"
-          [src]="previewImage"
+          *ngIf="previewImageService.previewImage"
+          [src]="previewImageService.previewImage"
           class="img-avatar"
           alt=""
         />
@@ -79,7 +79,7 @@
           </label>
         </fieldset>
         <button
-          [disabled]="!imageFile"
+          [disabled]="!previewImageService.imageFile"
           (click)="uploadImage()"
           type="button"
           class="btn btn-success btn-block waves-effect waves-light m-r-10"
