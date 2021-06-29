@@ -6,7 +6,7 @@
           id="inputSearch"
           type="text"
           class="form-control"
-          placeholder="Search user..."
+          placeholder="Search hospital..."
           (keyup)="search(inputSearch.value)"
           #inputSearch
         />
@@ -15,7 +15,7 @@
   </div>
 </div>
 
-<div class="row animated fadeIn fast" *ngIf="loading">
+<div *ngIf="loading" class="row animated fadeIn fast">
   <div class="col-12">
     <div class="alert alert-info text-center">
       <h4 class="alert-heading">Loading</h4>
@@ -29,54 +29,60 @@
   <div class="col-12">
     <div class="card">
       <div class="card-body">
-        <h4 class="card-title">Total Users ({{ totalUsers }})</h4>
-        <h6 class="card-subtitle">Users registered in the application</h6>
+        <div class="row">
+          <div class="col">
+            <h4 class="card-title">Total Hospitals ({{ total }})</h4>
+            <h6 class="card-subtitle">
+              Hospitals registered in the application
+            </h6>
+          </div>
+          <div class="col-8">
+            <div class="text-right">
+              <button (click)="openSweetAlert()" class="btn btn-primary">
+                <i class="fa fa-hospital-o"></i> Create Hospital
+              </button>
+            </div>
+          </div>
+        </div>
         <div class="table-responsive">
           <table class="table table-bordered">
             <thead>
               <tr>
-                <th class="w100">Avatar</th>
-                <th>Email</th>
+                <th class="w100">Image</th>
                 <th>Name</th>
-                <th class="w100">Role</th>
-                <th class="w100">Auth</th>
                 <th class="text-nowrap w100">Actions</th>
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let user of users">
+              <tr *ngFor="let hospital of hospitals">
                 <td>
                   <img
-                    class="row-avatar-image cursor"
-                    [src]="user.img || '' | image: 'users'"
-                    alt="Avatar's user"
-                    (click)="openModal(user)"
+                    class="row-avatar-image"
+                    [src]="hospital.img || '' | image: 'hospitals'"
+                    [alt]="hospital.name"
+                    (click)="openModal(hospital)"
                   />
                 </td>
-                <td>{{ user.email }}</td>
-                <td>{{ user.name }}</td>
-                <td class="w140">
-                  <select
-                    [(ngModel)]="user.role"
+                <td>
+                  <input
+                    type="text"
                     class="form-control"
-                    (change)="changeRole(user)"
-                  >
-                    <option value="ADMIN_ROLE">Admin</option>
-                    User
-                    <option value="USER_ROLE">User</option>
-                  </select>
-                </td>
-                <td class="text-nowrap">
-                  <span *ngIf="user.google" class="label label-danger"
-                    >google</span
-                  >
-                  <span *ngIf="!user.google" class="label label-info"
-                    >email</span
-                  >
+                    placeholder="Hospital's name"
+                    [(ngModel)]="hospital.name"
+                  />
                 </td>
                 <td class="text-nowrap text-center">
                   <a
-                    (click)="deleteUser(user)"
+                    class="cursor"
+                    (click)="updateHospital(hospital)"
+                    data-toggle="tooltip"
+                    data-original-title="Edit"
+                  >
+                    <i class="fa fa-pencil text-inverse m-r-10"></i>
+                  </a>
+
+                  <a
+                    (click)="deleteHospital(hospital)"
                     class="cursor"
                     data-toggle="tooltip"
                     data-original-title="Delete"
@@ -97,12 +103,10 @@
           <br />
           <br />
           <span
-            >Showing results from: {{ totalUsers > 0 ? from + 1 : 0 }} to
-            <span *ngIf="from + incPage > totalUsers">{{ totalUsers }}</span>
-            <span *ngIf="from + incPage < totalUsers">{{
-              from + incPage
-            }}</span>
-            of {{ totalUsers }}</span
+            >Showing results from: {{ total > 0 ? from + 1 : 0 }} to
+            <span *ngIf="from + incPage > total">{{ total }}</span>
+            <span *ngIf="from + incPage < total">{{ from + incPage }}</span>
+            of {{ total }}</span
           >
         </div>
       </div>

@@ -18,23 +18,31 @@ import { PromisesComponent } from './promises/promises.component';
 import { RxjsComponent } from './rxjs/rxjs.component';
 import { ProfileComponent } from './profile/profile.component';
 import { UsersComponent } from './management/users/users.component';
+import { HospitalsComponent } from './management/hospitals/hospitals.component';
+import { DoctorsComponent } from './management/doctors/doctors.component';
+import { PipesModule } from '../pipes/pipes.module';
+import { DoctorComponent } from './management/doctors/doctor.component';
 
 @NgModule({
   declarations: [
     AccountSettingsComponent,
     DashboardComponent,
     Graph1Component,
+    DoctorsComponent,
+    HospitalsComponent,
     ProgressComponent,
     PagesComponent,
+    ProfileComponent,
     PromisesComponent,
     RxjsComponent,
-    ProfileComponent,
     UsersComponent,
+    DoctorComponent,
   ],
   imports: [
     CommonModule,
     ComponentsModule,
     FormsModule,
+    PipesModule,
     ReactiveFormsModule,
     RouterModule,
     SharedModule,

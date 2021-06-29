@@ -4,10 +4,14 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { ModelType } from '../interfaces/modelType.interface';
+import { Doctor } from '../models/doctor.model';
+
+import { Hospital } from '../models/hospital.model';
+// import { Doctor } from '../models/doctor.model';
 import { User } from '../models/user.model';
 
 export interface SearchResult {
-  results: User[];
+  results: User[] | Hospital[] | Doctor[];
   total: number;
 }
 
@@ -37,6 +41,20 @@ export class SearchsService {
     });
   }
 
+  transformHospitals(results: any[]): Hospital[] {
+    return results.map((hospital) => {
+      const { name, img, _id } = hospital;
+      return new Hospital(_id, name, img);
+    });
+  }
+
+  transformDoctors(results: any[]): Doctor[] {
+    return results.map((doctor) => {
+      const { name, img, _id } = doctor;
+      return new Doctor(_id, name, img);
+    });
+  }
+
   search(type: ModelType, criteria: string = ''): Observable<SearchResult> {
     return this.http
       .get(`${base_url}/search/collection/${type}?${criteria}`, {
@@ -48,6 +66,16 @@ export class SearchsService {
             case 'users':
               return {
                 results: this.transformUsers(response.results),
+                total: response.total,
+              };
+            case 'hospitals':
+              return {
+                results: this.transformHospitals(response.results),
+                total: response.total,
+              };
+            case 'doctors':
+              return {
+                results: this.transformDoctors(response.results),
                 total: response.total,
               };
             default:

@@ -121,7 +121,7 @@ export class UserService {
     );
   }
 
-  loadUsers(from: number = 0) {
+  getUsers(from: number = 0) {
     return this.http
       .get<LoadUsers>(`${base_url}/users?from=${from}`, {
         ...this.headers,

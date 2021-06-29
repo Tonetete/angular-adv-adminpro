@@ -29,54 +29,53 @@
   <div class="col-12">
     <div class="card">
       <div class="card-body">
-        <h4 class="card-title">Total Users ({{ totalUsers }})</h4>
-        <h6 class="card-subtitle">Users registered in the application</h6>
+        <div class="row">
+          <div class="col">
+            <h4 class="card-title">Total Doctors ({{ total }})</h4>
+            <h6 class="card-subtitle">Doctors registered in the application</h6>
+          </div>
+          <div class="col-8">
+            <div class="text-right">
+              <button
+                [routerLink]="['/dashboard/doctor', 'new']"
+                class="btn btn-primary"
+              >
+                <i class="fa fa-hospital-o"></i> Create Doctor
+              </button>
+            </div>
+          </div>
+        </div>
         <div class="table-responsive">
           <table class="table table-bordered">
             <thead>
               <tr>
-                <th class="w100">Avatar</th>
-                <th>Email</th>
+                <th class="row-avatar-image">Image</th>
                 <th>Name</th>
-                <th class="w100">Role</th>
-                <th class="w100">Auth</th>
                 <th class="text-nowrap w100">Actions</th>
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let user of users">
+              <tr *ngFor="let doctor of doctors">
                 <td>
                   <img
                     class="row-avatar-image cursor"
-                    [src]="user.img || '' | image: 'users'"
-                    alt="Avatar's user"
-                    (click)="openModal(user)"
+                    [src]="doctor.img || '' | image: 'doctors'"
+                    alt="Avatar's doctor"
+                    (click)="openModal(doctor)"
                   />
                 </td>
-                <td>{{ user.email }}</td>
-                <td>{{ user.name }}</td>
-                <td class="w140">
-                  <select
-                    [(ngModel)]="user.role"
-                    class="form-control"
-                    (change)="changeRole(user)"
-                  >
-                    <option value="ADMIN_ROLE">Admin</option>
-                    User
-                    <option value="USER_ROLE">User</option>
-                  </select>
-                </td>
-                <td class="text-nowrap">
-                  <span *ngIf="user.google" class="label label-danger"
-                    >google</span
-                  >
-                  <span *ngIf="!user.google" class="label label-info"
-                    >email</span
-                  >
-                </td>
+                <td>{{ doctor.name }}</td>
                 <td class="text-nowrap text-center">
                   <a
-                    (click)="deleteUser(user)"
+                    [routerLink]="['/dashboard/doctor', doctor._id]"
+                    class="cursor"
+                    data-toggle="tooltip"
+                    data-original-title="Edit"
+                  >
+                    <i class="fa fa-pencil text-inverse m-r-10"></i>
+                  </a>
+                  <a
+                    (click)="deleteDoctor(doctor)"
                     class="cursor"
                     data-toggle="tooltip"
                     data-original-title="Delete"
@@ -97,12 +96,10 @@
           <br />
           <br />
           <span
-            >Showing results from: {{ totalUsers > 0 ? from + 1 : 0 }} to
-            <span *ngIf="from + incPage > totalUsers">{{ totalUsers }}</span>
-            <span *ngIf="from + incPage < totalUsers">{{
-              from + incPage
-            }}</span>
-            of {{ totalUsers }}</span
+            >Showing results from: {{ total > 0 ? from + 1 : 0 }} to
+            <span *ngIf="from + incPage > total">{{ total }}</span>
+            <span *ngIf="from + incPage < total">{{ from + incPage }}</span>
+            of {{ total }}</span
           >
         </div>
       </div>

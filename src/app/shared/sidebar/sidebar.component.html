@@ -13,7 +13,7 @@
             href="#"
             aria-expanded="false"
             ><img
-              [src]="user.getImage()"
+              [src]="user.img || '' | image: 'users'"
               alt="user"
               class="imageProfile"
             /><span class="hide-menu contentProfile">{{ user.name }} </span></a

@@ -37,14 +37,9 @@ export class UsersComponent implements OnInit, OnDestroy {
     this.imageSubscription.unsubscribe();
   }
 
-  createUserInstance(user: any) {
-    const { name, role, google, email, img = '', uid } = user;
-    return new User(name, email, '', img, google, role, uid);
-  }
-
   loadUsers() {
     this.loading = true;
-    this.userService.loadUsers(this.from).subscribe(({ total, users }) => {
+    this.userService.getUsers(this.from).subscribe(({ total, users }) => {
       this.loading = false;
       this.totalUsers = total;
       if (users.length !== 0) {
@@ -81,7 +76,7 @@ export class UsersComponent implements OnInit, OnDestroy {
       this.searchService
         .search('users', query)
         .subscribe((response: SearchResult) => {
-          this.users = response.results;
+          this.users = response.results as User[];
           this.totalUsers = response.total;
           if (this.totalUsers === 0) {
             this.from = 0;

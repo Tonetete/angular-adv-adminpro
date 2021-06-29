@@ -5,7 +5,10 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { DoctorsComponent } from './management/doctors/doctors.component';
+import { DoctorComponent } from './management/doctors/doctor.component';
 import { Graph1Component } from './graph1/graph1.component';
+import { HospitalsComponent } from './management/hospitals/hospitals.component';
 import { PagesComponent } from './pages.component';
 import { ProfileComponent } from './profile/profile.component';
 import { ProgressComponent } from './progress/progress.component';
@@ -63,7 +66,22 @@ const routes: Routes = [
       {
         path: 'users',
         component: UsersComponent,
-        data: { title: 'App Users ' },
+        data: { title: 'Users Management' },
+      },
+      {
+        path: 'hospitals',
+        component: HospitalsComponent,
+        data: { title: 'Hospitals Management' },
+      },
+      {
+        path: 'doctors',
+        component: DoctorsComponent,
+        data: { title: 'Doctors Management' },
+      },
+      {
+        path: 'doctor/:id',
+        component: DoctorComponent,
+        data: { title: 'Doctor Management' },
       },
     ],
   },

@@ -323,14 +323,17 @@
             data-toggle="dropdown"
             aria-haspopup="true"
             aria-expanded="false"
-            ><img [src]="user.getImage()" alt="user" class="profile-pic"
+            ><img
+              [src]="user.img || '' | image: 'users'"
+              alt="user"
+              class="profile-pic"
           /></a>
           <div class="dropdown-menu dropdown-menu-right fast fadeIn">
             <ul class="dropdown-user">
               <li>
                 <div class="dw-user-box">
                   <div class="u-img crop-profile imageProfile">
-                    <img [src]="user.getImage()" alt="user" />
+                    <img [src]="user.img || '' | image: 'users'" alt="user" />
                   </div>
                   <div class="u-text contentProfile">
                     <h4>{{ user.name }}</h4>
