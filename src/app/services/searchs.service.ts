@@ -5,14 +5,19 @@ import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { ModelType } from '../interfaces/modelType.interface';
 import { Doctor } from '../models/doctor.model';
-
 import { Hospital } from '../models/hospital.model';
-// import { Doctor } from '../models/doctor.model';
 import { User } from '../models/user.model';
 
 export interface SearchResult {
   results: User[] | Hospital[] | Doctor[];
   total: number;
+}
+
+export interface SearchAllResult {
+  hospitals: Hospital[];
+  doctors: Doctor[];
+  users: User[];
+  ok: boolean;
 }
 
 const base_url = environment.base_api_url;
@@ -53,6 +58,16 @@ export class SearchsService {
       const { name, img, _id } = doctor;
       return new Doctor(_id, name, img);
     });
+  }
+
+  searchAll(criteria: string = ''): Observable<SearchAllResult> {
+    const url = `${base_url}/search/${criteria}`;
+    return this.http.get<SearchAllResult>(
+      `${base_url}/search?criteria=${criteria}`,
+      {
+        ...this.headers,
+      }
+    );
   }
 
   search(type: ModelType, criteria: string = ''): Observable<SearchResult> {

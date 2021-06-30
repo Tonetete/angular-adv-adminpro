@@ -9,14 +9,12 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./sidebar.component.styles.scss'],
 })
 export class SidebarComponent implements OnInit {
-  menuItems: any[];
   public user!: User;
 
   constructor(
-    private sidebarService: SidebarService,
+    public sidebarService: SidebarService,
     private userService: UserService
   ) {
-    this.menuItems = sidebarService.menu;
     this.user = userService.user;
   }
 

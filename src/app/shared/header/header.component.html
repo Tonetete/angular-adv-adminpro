@@ -81,11 +81,15 @@
             href="javascript:void(0)"
             ><i class="ti-search"></i
           ></a>
-          <form class="app-search">
+          <form
+            (ngSubmit)="search(txtInputSearchTerm.value)"
+            class="app-search"
+          >
             <input
               type="text"
               class="form-control"
-              placeholder="Search & enter"
+              placeholder="Search doctor, hospital or user"
+              #txtInputSearchTerm
             />
             <a class="srh-btn"><i class="ti-close"></i></a>
           </form>
@@ -353,12 +357,7 @@
               <li>
                 <a routerLink="profile"><i class="ti-user"></i> My Profile</a>
               </li>
-              <li>
-                <a href="#"><i class="ti-wallet"></i> My Balance</a>
-              </li>
-              <li>
-                <a href="#"><i class="ti-email"></i> Inbox</a>
-              </li>
+
               <li role="separator" class="divider"></li>
               <li>
                 <a routerLink="account-settings"

@@ -19,6 +19,8 @@ import { UsersComponent } from './management/users/users.component';
 // Guards
 
 import { AuthGuard } from '../guards/auth.guard';
+import { SearchComponent } from './search/search.component';
+import { AdminGuard } from '../guards/admin.guard';
 
 const routes: Routes = [
   {
@@ -61,10 +63,16 @@ const routes: Routes = [
         component: RxjsComponent,
         data: { title: 'RxJS ' },
       },
+      {
+        path: 'search/:terms',
+        component: SearchComponent,
+        data: { title: 'Search' },
+      },
 
       // Management
       {
         path: 'users',
+        canActivate: [AdminGuard],
         component: UsersComponent,
         data: { title: 'Users Management' },
       },
@@ -80,6 +88,7 @@ const routes: Routes = [
       },
       {
         path: 'doctor/:id',
+        canActivate: [AdminGuard],
         component: DoctorComponent,
         data: { title: 'Doctor Management' },
       },

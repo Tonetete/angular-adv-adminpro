@@ -22,6 +22,7 @@ import { HospitalsComponent } from './management/hospitals/hospitals.component';
 import { DoctorsComponent } from './management/doctors/doctors.component';
 import { PipesModule } from '../pipes/pipes.module';
 import { DoctorComponent } from './management/doctors/doctor.component';
+import { SearchComponent } from './search/search.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { DoctorComponent } from './management/doctors/doctor.component';
     RxjsComponent,
     UsersComponent,
     DoctorComponent,
+    SearchComponent,
   ],
   imports: [
     CommonModule,

@@ -7,7 +7,7 @@ import { Observable, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { LoginForm } from '../interfaces/login-form.interface';
 import { RegisterForm } from '../interfaces/register-form.interface';
-import { User } from '../models/user.model';
+import { Role, User } from '../models/user.model';
 import { LoadUsers } from '../interfaces/load-users.interface';
 
 declare const gapi: any;
@@ -44,6 +44,7 @@ export class UserService {
 
   logout() {
     localStorage.removeItem('token');
+    localStorage.removeItem('menu');
     this.auth2.signOut().then(() => {
       this.ngZone.run(() => {
         this.router.navigateByUrl('/login');
@@ -61,6 +62,15 @@ export class UserService {
     return localStorage.getItem('token') || '';
   }
 
+  get role(): Role {
+    return this.user.role || 'USER_ROLE';
+  }
+
+  saveLocalStorage({ token, menu }: { token: string; menu: any[] }) {
+    localStorage.setItem('token', token);
+    localStorage.setItem('menu', JSON.stringify(menu));
+  }
+
   validateToken(): Observable<boolean> {
     return this.http
       .get(`${base_url}/login/renew`, {
@@ -70,7 +80,7 @@ export class UserService {
         map((response: any) => {
           const { name, role, google, email, img = '', uid } = response.user;
           this.user = new User(name, email, '', img, google, role, uid);
-          localStorage.setItem('token', response.token);
+          this.saveLocalStorage({ token: response.token, menu: response.menu });
           return true;
         }),
         catchError((error) => of(false))
@@ -80,7 +90,7 @@ export class UserService {
   createUser(formData: RegisterForm) {
     return this.http.post(`${base_url}/users`, formData).pipe(
       tap((response: any) => {
-        localStorage.setItem('token', response.token);
+        this.saveLocalStorage({ ...response });
       })
     );
   }
@@ -97,7 +107,7 @@ export class UserService {
 
   updateUser(data: User) {
     return this.http.put(
-      `${base_url}/users/${data.uid}`,
+      `${base_url}/users/${this.user.uid}`,
       { ...data },
       {
         ...this.headers,
@@ -108,7 +118,7 @@ export class UserService {
   loginUser(formData: LoginForm) {
     return this.http.post(`${base_url}/login`, formData).pipe(
       tap((response: any) => {
-        localStorage.setItem('token', response.token);
+        this.saveLocalStorage({ ...response });
       })
     );
   }
@@ -116,7 +126,7 @@ export class UserService {
   loginGoogleUser(token: string) {
     return this.http.post(`${base_url}/login/google`, { token }).pipe(
       tap((response: any) => {
-        localStorage.setItem('token', response.token);
+        this.saveLocalStorage({ ...response });
       })
     );
   }

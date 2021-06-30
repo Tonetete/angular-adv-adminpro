@@ -1,0 +1,108 @@
+<div class="row animated fadeIn fast">
+  <div class="col-4">
+    <div class="card">
+      <div class="card-body">
+        <h3>Users</h3>
+
+        <div *ngIf="!users?.length" class="alert alert-info">
+          <p class="mb-0">No users found matching these terms</p>
+        </div>
+
+        <div *ngIf="users?.length" class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Avatar</th>
+                <th>Name</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="animated fadeIn fast" *ngFor="let user of users">
+                <td>
+                  <img
+                    class="row-avatar-image cursor"
+                    [src]="user.img || '' | image: 'users'"
+                  />
+                </td>
+                <td>{{ user.name }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-4">
+    <div class="card">
+      <div class="card-body">
+        <h3>Doctors</h3>
+
+        <div *ngIf="!doctors?.length" class="alert alert-info">
+          <p class="mb-0">No doctors found matching these terms</p>
+        </div>
+
+        <div *ngIf="doctors?.length" class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Avatar</th>
+                <th>Name</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                [routerLink]="['/dashboard/doctor', doctor._id]"
+                class="animated fadeIn fast cursor"
+                *ngFor="let doctor of doctors"
+              >
+                <td>
+                  <img
+                    class="row-avatar-image cursor"
+                    [src]="doctor.img || '' | image: 'doctors'"
+                  />
+                </td>
+                <td>{{ doctor.name }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-4">
+    <div class="card">
+      <div class="card-body">
+        <h3>Hospitals</h3>
+
+        <div *ngIf="!hospitals?.length" class="alert alert-info">
+          <p class="mb-0">No hospitals found matching these terms</p>
+        </div>
+
+        <div *ngIf="hospitals?.length" class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Avatar</th>
+                <th>Name</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                class="animated fadeIn fast"
+                *ngFor="let hospital of hospitals"
+              >
+                <td>
+                  <img
+                    class="row-avatar-image cursor"
+                    [src]="hospital.img || '' | image: 'hospitals'"
+                  />
+                </td>
+                <td>{{ hospital.name }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

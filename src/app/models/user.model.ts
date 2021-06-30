@@ -1,7 +1,4 @@
-import { environment } from 'src/environments/environment';
-
-const base_url = environment.base_api_url;
-
+export type Role = 'USER_ROLE' | 'ADMIN_ROLE';
 export class User {
   constructor(
     public name: string,
@@ -9,7 +6,7 @@ export class User {
     public password?: string,
     public img?: string,
     public google?: boolean,
-    public role?: string,
+    public role?: Role,
     public uid?: string
   ) {}
 }
