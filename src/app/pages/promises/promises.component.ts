@@ -10,7 +10,6 @@ export class PromisesComponent implements OnInit {
 
   async ngOnInit() {
     const result = await this.getUsers();
-    console.log(result);
 
     // const promise = new Promise((resolve, reject) => {
     //   resolve('Hola Mundo');

@@ -54,8 +54,6 @@ export class DoctorComponent implements OnInit {
       .pipe(delay(150))
       // @ts-ignore
       .subscribe((doctor) => {
-        console.log('tick');
-
         if (!doctor) {
           return this.router.navigateByUrl(`/dashboard/doctors`);
         }
